@@ -38,6 +38,15 @@ if __name__ == '__main__':
                 artist, title = yandex.get_artist_and_title_from_spotify(track_id)
                 ext_url = yandex.get_url_from_yandex_by_artist_and_title(artist, title)
                 bot.send_message(message.from_user.id, f'{ext_url}')
+        elif "youtube" in message.text:
+            track_id = yandex.get_album_and_track_from_youtube_url(message.text)
+            if track_id == "":
+                bot.send_message(message.from_user.id, f'Неправильный формат ссылки.')
+            else:
+                artist, title = yandex.get_artist_and_title_from_youtube(track_id)
+                ext_url_yandex = yandex.get_url_from_yandex_by_artist_and_title(artist, title)
+                ext_url_spotify = yandex.get_url_from_spotify_by_artist_and_title(artist, title)
+                bot.send_message(message.from_user.id, f'{ext_url_yandex}\n{ext_url_spotify}')
         else:
             error_str = "Неправильный формат ссылки. Наберите команду \start для подробностей."
             bot.send_message(message.from_user.id, error_str)

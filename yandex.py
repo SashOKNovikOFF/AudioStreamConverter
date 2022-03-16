@@ -81,3 +81,17 @@ def get_url_from_spotify_by_artist_and_title(title, artist):
     if len(items) > 0:
         ext_url = items[0]['external_urls']['spotify']
         return ext_url
+
+
+def get_album_and_track_from_youtube_url(urlname):
+
+    from urllib.parse import urlparse
+    return urlparse(urlname).query[2:]
+
+
+def get_artist_and_title_from_youtube(track_id):
+    from ytmusicapi import YTMusic
+
+    ytmusic = YTMusic()
+    song_data = ytmusic.get_song(track_id)
+    return song_data['videoDetails']['author'], song_data['videoDetails']['title']
