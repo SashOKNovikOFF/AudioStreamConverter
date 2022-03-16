@@ -95,3 +95,12 @@ def get_artist_and_title_from_youtube(track_id):
     ytmusic = YTMusic()
     song_data = ytmusic.get_song(track_id)
     return song_data['videoDetails']['author'], song_data['videoDetails']['title']
+
+
+def get_url_from_youtube_by_artist_and_title(title, artist):
+    from ytmusicapi import YTMusic
+
+    ytmusic = YTMusic()
+    query = artist + " " + title
+    search_results = ytmusic.search(query)
+    return "https://music.youtube.com/watch?v=" + search_results[0]['videoId']
